@@ -1,0 +1,9 @@
+package home
+
+import "github.com/atipugin/golang-templ-htmx-app/internal/view/layout"
+
+templ Index() {
+	@layout.Base(layout.BaseProps{Title: "Main page"}) {
+		<h1>Hello, world!</h1>
+	}
+}
