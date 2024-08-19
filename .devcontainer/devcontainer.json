@@ -1,0 +1,17 @@
+{
+  "name": "Golang + Templ + HTMX App",
+  "image": "mcr.microsoft.com/devcontainers/go:1-1.22-bookworm",
+  "features": {
+    "ghcr.io/dusansimic/devcontainer-features/templ:0": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "EditorConfig.EditorConfig",
+        "golang.go",
+        "a-h.templ",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}

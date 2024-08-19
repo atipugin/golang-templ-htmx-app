@@ -1,11 +1,19 @@
+BINPATH = bin/myapp
+
 .PHONY: build
-build:
-	templ generate internal/view
-	go build -o bin/myapp cmd/myapp/main.go
+build: build-templ build-app
+
+.PHONY: build-app
+build-app:
+	go build -o $(BINPATH) cmd/myapp/main.go
+
+.PHONY: build-templ
+build-templ:
+	templ generate
 
 .PHONY: run
 run: build
-	./bin/myapp
+	$(BINPATH)
 
 .PHONY: fmt
 fmt:
