@@ -1,7 +1,7 @@
 BINPATH = bin/myapp
 
 .PHONY: build
-build: build-templ build-css build-app
+build: build-templ build-css build-js build-app
 
 .PHONY: build-app
 build-app:
@@ -15,9 +15,13 @@ build-templ:
 build-css:
 	npm --prefix web run build:css -- --minify
 
+.PHONY: build-js
+build-js:
+	npm --prefix web run build:js -- --minify
+
 .PHONY: watch
 watch:
-	$(MAKE) -j3 watch-app watch-templ watch-css
+	$(MAKE) -j5 watch-app watch-templ watch-css watch-js watch-assets
 
 .PHONY: watch-app
 watch-app:
@@ -37,6 +41,20 @@ watch-templ:
 .PHONY: watch-css
 watch-css:
 	npm --prefix web run build:css -- --watch=always
+
+.PHONY: watch-js
+watch-js:
+	npm --prefix web run build:js -- --watch=forever
+
+.PHONY: watch-assets
+watch-assets:
+	go run github.com/air-verse/air@latest \
+	--build.cmd "templ generate --notify-proxy" \
+	--build.bin "true" \
+	--build.exclude_dir "" \
+	--build.include_dir "web/public/assets" \
+	--build.include_ext "css,js" \
+	--build.delay "100"
 
 .PHONY: fmt
 fmt:
