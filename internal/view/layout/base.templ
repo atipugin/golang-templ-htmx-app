@@ -8,9 +8,12 @@ templ Base(props BaseProps) {
 	<html>
 		<head>
 			<title>{ props.Title }</title>
+			<link rel="stylesheet" href="/assets/main.css"/>
 		</head>
 		<body>
-			{ children... }
+			<div class="container mx-auto">
+				{ children... }
+			</div>
 		</body>
 	</html>
 }

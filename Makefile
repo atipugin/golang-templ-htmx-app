@@ -1,7 +1,7 @@
 BINPATH = bin/myapp
 
 .PHONY: build
-build: build-templ build-app
+build: build-templ build-css build-app
 
 .PHONY: build-app
 build-app:
@@ -11,9 +11,13 @@ build-app:
 build-templ:
 	templ generate
 
+.PHONY: build-css
+build-css:
+	npm --prefix web run build:css -- --minify
+
 .PHONY: watch
 watch:
-	$(MAKE) -j2 watch-app watch-templ
+	$(MAKE) -j3 watch-app watch-templ watch-css
 
 .PHONY: watch-app
 watch-app:
@@ -21,7 +25,7 @@ watch-app:
 	--build.cmd "$(MAKE) build-app" \
 	--build.bin "$(BINPATH)" \
 	--build.include_ext "go" \
-	--build.exclude_dir "bin"
+	--build.exclude_dir "bin,web"
 
 .PHONY: watch-templ
 watch-templ:
@@ -29,6 +33,10 @@ watch-templ:
 	--watch \
 	--proxy "http://localhost:8080" \
 	--open-browser=false
+
+.PHONY: watch-css
+watch-css:
+	npm --prefix web run build:css -- --watch=always
 
 .PHONY: fmt
 fmt:
