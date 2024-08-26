@@ -59,3 +59,8 @@ watch-assets:
 .PHONY: fmt
 fmt:
 	templ fmt internal/view
+
+.PHONY: install-deps
+install-deps:
+	npm --prefix web install
+	go mod download
