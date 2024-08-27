@@ -14,7 +14,9 @@ func Run(ctx context.Context) error {
 	cfg := config.NewConfig()
 
 	r := chi.NewRouter()
-	handler.RegisterRoutes(r)
+	handler.RegisterRoutes(r, handler.Dependencies{
+		AssetsFS: http.Dir(cfg.AssetsDir),
+	})
 
 	s := http.Server{
 		Addr:    cfg.ServerAddr,

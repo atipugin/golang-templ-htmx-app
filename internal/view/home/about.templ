@@ -1,0 +1,9 @@
+package home
+
+import "github.com/atipugin/golang-templ-htmx-app/internal/view/layout"
+
+templ About() {
+	@layout.Base(layout.BaseProps{Title: "About"}) {
+		<h1>About</h1>
+	}
+}
