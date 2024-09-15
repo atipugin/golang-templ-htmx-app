@@ -1,0 +1,28 @@
+package users
+
+import (
+	"github.com/atipugin/golang-templ-htmx-app/internal/domain"
+	"github.com/atipugin/golang-templ-htmx-app/internal/view/layout"
+)
+
+type NewUserProps struct {
+	Email    string
+	Errors   domain.ValidationErrors
+}
+
+templ NewUser(props NewUserProps) {
+	@layout.Base(layout.BaseProps{Title: "Create User"}) {
+		<h1 class="text-xl">Create new user</h1>
+		<form action="/users" method="post">
+			<div>
+				<input type="email" name="email" value={ props.Email } class="input input-bordered"/>
+				if props.Errors.Has("email") {
+					<div class="text-sm text-error">{ props.Errors.Get("email")[0] }</div>
+				}
+			</div>
+			<div>
+				<button class="btn btn-primary">Create</button>
+			</div>
+		</form>
+	}
+}
